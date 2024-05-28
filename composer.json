@@ -1,11 +1,12 @@
 {
-    "name": "ad-scout/module-connector",
-    "version": "1.0.0",
-    "description": "N/A",
-    "type": "magento2-module",
+    "name": "adscout-io/magento-connector",
+    "description": "The connector module provides the ability to integrate with Adscout.io platform",
     "require": {
-        "magento/framework": "*"
+        "php": "^7||^8",
+        "magento/framework": "^103"
     },
+    "type": "magento2-module",
+    "version": "1.0.0",
     "license": [
         "Proprietary"
     ],
