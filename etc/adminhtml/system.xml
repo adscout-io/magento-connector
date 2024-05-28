@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ad Scout - https://adscout.io
+ * Copyright © AdScout Module 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://adscout.io/terms-and-conditions
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ad_scout" sortOrder="1000" translate="label">
+            <label>Ad Scout</label>
+        </tab>
+        <section id="ad_scout_general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="0" translate="label">
+            <label>General</label>
+            <tab>ad_scout</tab>
+            <resource>VENDOR_MODULE::path_to_the_acl_resource</resource>
+                <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                    <label>Settings</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <comment>Enable the AdScout module</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="api_token" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Token</label>
+                        <comment>API TOKEN COMMENT.</comment>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="api_code" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Code</label>
+                        <comment>API CODE COMMENT.</comment>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="integration" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30"
+                           translate="label,comment" type="select">
+                        <label>Integration</label>
+                        <comment>Integration type.</comment>
+                        <source_model>AdScout\Connector\Model\Config\Source\IntegrationTypeList</source_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="csv_url" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>CSV url</label>
+                        <comment>The public url address for product export csv</comment>
+                        <frontend_model>AdScout\Connector\Block\System\Config\Form\Field\Disable</frontend_model>
+                    </field>
+                </group>
+        </section>
+    </system>
+</config>

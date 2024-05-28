@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--    <head>
+            <script src="AdScout_Connector::js/clear-ref.js"/>
+        </head>-->
+    <body>
+        <referenceContainer name="content">
+            <block name="adscout-ref-clear" template="AdScout_Connector::adscout-clear-ref.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

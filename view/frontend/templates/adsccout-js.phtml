@@ -1,0 +1,17 @@
+<?php
+declare(strict_types=1);
+
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $viewModel \AdScout\Connector\ViewModel\AdScoutViewModel */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+$viewModel = $block->getAdscoutViewModel();
+?>
+
+<?php if ($viewModel->isEnabled() == 1): ?>
+    <?php if ($viewModel->getIntegrationType() == 1): ?>
+        <script async src="https://adscout.<?= $viewModel->getDomain()?>/script/<?= $viewModel->getApiCode()?>"></script>
+    <?php else: ?>
+        <?php //TODO compatible for under 2.4 ?>
+        <?= /* @noEscape */ $secureRenderer->renderTag('script', ['async' => '', 'src' => 'https://scoutefy.com/script/'. $viewModel->getApiCode()], null); ?>
+    <?php endif ?>
+<?php endif ?>

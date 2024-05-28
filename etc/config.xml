@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ad_scout_general>
+            <general>
+                <enable>0</enable>
+                <csv_url>
+                    <config>{{secure_base_url}}adscout.csv</config>
+                </csv_url>
+                <integration>2</integration>
+            </general>
+        </ad_scout_general>
+        <csp>
+            <mode>
+                <storefront>
+                    <report_only>1</report_only>
+                </storefront>
+                <admin>
+                    <report_only>1</report_only>
+                </admin>
+            </mode>
+        </csp>
+    </default>
+</config>
