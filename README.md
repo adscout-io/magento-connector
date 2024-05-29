@@ -27,15 +27,25 @@ Login in admin panel of your store and go to:
 
 Set **Enable** to `Yes`
 
-Set **API Token** and **API Code** will be provided by AdScout platform once your account is approved.
+Then login to your AdScout profile. After successful login press the gear icon in the upper right corner, from the
+drop-down menu choose General and find API Token and API Code.
 
-Select integration type
+Copy and paste them in the fields **API Token** and **API Code**.
+
+Select integration type.
+
+Copy **CSV url** address and paste it in the field Feed URL in the settings of your AdScout profile. In order to open
+the
+settings, press the gear icon in the upper right corner and from the drop-down choose General. After you have
+completed the step scroll down to the bottom of the page and press the button Update to save the changes.
 
 Click **Save Config** button in top right corner and flush the cache. You can do it through admin panel or with command:
 
 ```
 bin/magento cache:flush
 ```
+
+Congratulations! You have successfully enabled our Magento/Adobe Commerce plugin for your store.
 
 ![Setup](https://raw.githubusercontent.com/adscout-io/magento-connector/master/docs/adscout-settings-demo-2024-05-29.jpg)
 
