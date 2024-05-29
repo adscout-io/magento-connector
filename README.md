@@ -1,4 +1,4 @@
-<h1 align="center">AdScout_Connector</h1> 
+<h1 align="center">AdScout Connector</h1> 
 
 ## Table of contents
 
@@ -23,7 +23,7 @@ bin/magento setup:upgrade
 
 Login in admin panel of your store and go to:
 
-`Stores -> Configuration -> Ad Scout -> General`
+`Stores -> Configuration -> AdScout -> General`
 
 Set **Enable** to `Yes`
 
