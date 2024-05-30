@@ -26,11 +26,8 @@ class OrderComplete implements ObserverInterface
     {
         $order = $observer->getEvent()->getOrder();
         if ($order instanceof AbstractModel) {
-            if ($order->getState() == 'complete') {
-                $this->logger->info('Send API call to AdScout order complete.');
-                $this->adScoutApiClient->changeOrderStatus($order);
-                //Your code here
-            }
+            $this->logger->info('Send API call to AdScout order complete.');
+            $this->adScoutApiClient->changeOrderStatus($order);
         }
         return $this;
     }

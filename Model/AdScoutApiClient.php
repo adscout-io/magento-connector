@@ -104,7 +104,7 @@ class AdScoutApiClient
 
         $body = [
             "orderNumber" => $order->getIncrementId(),
-            "status"      => "complete",
+            "status"      => $order->getState(),
         ];
         $this->logger->info('AdScout API response body: ' . print_r(json_encode($body), true));
         try {
