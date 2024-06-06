@@ -1,0 +1,14 @@
+"Integration with DNS record","Интеграция с DNS запис"
+"Integration without DNS record","Интеграция без DNS запис"
+"Ad Scout","Ad Scout"
+General,Общи
+Settings,Настройки
+Enable,Активирай
+"Enable the AdScout module","Активирай модула AdScout"
+"API Token","API Токен"
+"API TOKEN COMMENT.","Коментар за API Токен."
+"API Code","API Код"
+"API CODE COMMENT.","Коментар за API Код."
+Integration,Интеграция
+"Integration type.","Тип интеграция."
+"CSV url","CSV url"

@@ -10,16 +10,25 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Store\Model\ScopeInterface;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\Stdlib\CookieManagerInterface;
+use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
 
 class AdScoutApiClient
 {
     public const TRACK_ORDER_URI = 'https://adscout.io/api/track-order';
     public const CHANGE_ORDER_STATUS = 'https://adscout.io/api/change-order-status';
+    public const PROMO_CODE_REF = 'https://adscout.io/api/get-partner-promo-code-ref?promo_code=';
+    private const COOKIE_NAME = 'ScoutSRef';
+
     private ClientFactory $clientFactory;
     private ScopeConfigInterface $scopeConfig;
     private LoggerInterface $logger;
+    private CookieManagerInterface $cookieManager;
+    private CookieMetadataFactory $cookieMetadataFactory;
 
     public function __construct(
+        CookieMetadataFactory $cookieMetadataFactory,
+        CookieManagerInterface $cookieManager,
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         ClientFactory $clientFactory
@@ -27,6 +36,8 @@ class AdScoutApiClient
         $this->clientFactory = $clientFactory;
         $this->scopeConfig = $scopeConfig;
         $this->logger = $logger;
+        $this->cookieManager = $cookieManager;
+        $this->cookieMetadataFactory = $cookieMetadataFactory;
     }
 
     public function trackOrder(OrderInterface $order)
@@ -66,7 +77,7 @@ class AdScoutApiClient
             "orderUpdate" => "n",
             "products"    => $products
         ];
-//$this->logger->info('AdScout API response body: ' . print_r(json_encode($body), true));
+
         try {
             $this->logger->info('AdScout API start ');
             $response = $client->post(self::TRACK_ORDER_URI, [
@@ -120,5 +131,49 @@ class AdScoutApiClient
         } catch (GuzzleException $e) {
             $this->logger->info('AdScout API response error: ' . $e->getMessage());
         }
+    }
+
+    public function getParamPromoCodeRef($promoCode)
+    {
+        /** @var Client $client */
+        $client = $this->clientFactory->create();
+
+        $headers = [
+            'Content-Type'  => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getAccessToken()
+        ];
+
+        try {
+            $this->logger->info('AdScout API Promo code start ');
+            $response = $client->get(self::PROMO_CODE_REF . $promoCode, [
+                'headers' => $headers,
+            ]);
+
+            $this->logger->info('AdScout API response Promo code: ' . $response->getStatusCode());
+            if ($response->getStatusCode() == 200) {
+                $responseBody = json_decode($response->getBody()->getContents(), true);
+
+                if ($responseBody['success']) {
+                    $this->setStoreCookie($this->getStoreCookie() . $responseBody['data']['ref']);
+                }
+            }
+        } catch (GuzzleException $e) {
+            $this->logger->info('AdScout API response error: ' . $e->getMessage());
+        }
+    }
+
+    public function getStoreCookie()
+    {
+        return $this->cookieManager->getCookie(self::COOKIE_NAME);
+    }
+
+    public function setStoreCookie($value)
+    {
+        $cookieMetadata = $this->cookieMetadataFactory->createPublicCookieMetadata()
+            ->setHttpOnly(true)
+            ->setDurationOneYear()
+            ->setPath('/');
+
+        $this->cookieManager->setPublicCookie(self::COOKIE_NAME, $value, $cookieMetadata);
     }
 }

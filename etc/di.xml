@@ -4,4 +4,8 @@
         <plugin name="after_place_order_operation"
                 type="AdScout\Connector\Plugin\OrderManagement"/>
     </type>
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="adscout_connector_coupon_set"
+                type="AdScout\Connector\Plugin\Coupon"/>
+    </type>
 </config>
