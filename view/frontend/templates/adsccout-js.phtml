@@ -14,7 +14,7 @@ $viewModel = $block->getAdscoutViewModel();
     <?php else: ?>
         <?php if ($viewModel->isMagentoVersionBelow24()): ?>
             <script async=""
-                    src="https&#x3A;&#x2F;&#x2F;scoutefy.com&#x2F;script&#x2F;<?= $viewModel->getApiCode() ?>"></script>
+                    src="https://scoutefy.com/script/<?= $viewModel->getApiCode() ?>"></script>
         <?php else: ?>
             <?= /* @noEscape */
             $secureRenderer->renderTag('script',
