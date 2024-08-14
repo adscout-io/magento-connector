@@ -9,9 +9,17 @@ $viewModel = $block->getAdscoutViewModel();
 
 <?php if ($viewModel->isEnabled() == 1): ?>
     <?php if ($viewModel->getIntegrationType() == 1): ?>
-        <script async src="https://adscout.<?= $viewModel->getDomain()?>/script/<?= $viewModel->getApiCode()?>"></script>
+        <script async
+                src="https://adscout.<?= $viewModel->getDomain() ?>/script/<?= $viewModel->getApiCode() ?>"></script>
     <?php else: ?>
-        <?php //TODO compatible for under 2.4 ?>
-        <?= /* @noEscape */ $secureRenderer->renderTag('script', ['async' => '', 'src' => 'https://scoutefy.com/script/'. $viewModel->getApiCode()], null); ?>
+        <?php if ($viewModel->isMagentoVersionBelow24()): ?>
+            <script async=""
+                    src="https://scoutefy.com/script/<?= $viewModel->getApiCode() ?>"></script>
+        <?php else: ?>
+            <?= /* @noEscape */
+            $secureRenderer->renderTag('script',
+                ['async' => '', 'src' => 'https://scoutefy.com/script/' . $viewModel->getApiCode()], null);
+            ?>
+        <?php endif ?>
     <?php endif ?>
 <?php endif ?>

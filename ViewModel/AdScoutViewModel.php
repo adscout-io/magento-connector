@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AdScout\Connector\ViewModel;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
@@ -14,16 +15,19 @@ class AdScoutViewModel implements ArgumentInterface
 {
     private ScopeConfigInterface $scopeConfig;
     private RequestInterface $request;
+    private ProductMetadataInterface $productMetadata;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
+        ProductMetadataInterface $productMetadata,
         RequestInterface $request,
         ScopeConfigInterface $scopeConfig
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->request = $request;
+        $this->productMetadata = $productMetadata;
     }
 
     /**
@@ -60,5 +64,12 @@ class AdScoutViewModel implements ArgumentInterface
             'ad_scout_general/general/enable',
             ScopeInterface::SCOPE_STORE
         );
+    }
+
+    public function isMagentoVersionBelow24()
+    {
+        $version = $this->productMetadata->getVersion();
+
+        return version_compare($version, '2.4', '<');
     }
 }
